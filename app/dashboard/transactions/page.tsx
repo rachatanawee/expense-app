@@ -42,15 +42,15 @@ export default async function TransactionsPage() {
               <th className="text-left p-4">Date</th>
               <th className="text-left p-4">Category</th>
               <th className="text-left p-4">Account</th>
-              <th className="text-left p-4">Note</th>
               <th className="text-right p-4">Amount</th>
+              <th className="text-left p-4">Note</th>
             </tr>
           </thead>
           <tbody>
             {transactions.map(tx => (
               <tr key={tx.id} className="border-b hover:bg-gray-50">
-                <td className="p-4">
-                  {new Date(tx.date).toLocaleDateString('th-TH')}
+                <td className="p-4 w-24">
+                  {new Date(tx.date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' })}
                 </td>
                 <td className="p-4">
                   <span className="flex items-center gap-2">
@@ -58,12 +58,12 @@ export default async function TransactionsPage() {
                   </span>
                 </td>
                 <td className="p-4">{tx.accounts?.name}</td>
-                <td className="p-4 text-gray-600">{tx.note}</td>
                 <td className={`p-4 text-right font-semibold ${
                   tx.type === 'income' ? 'text-green-600' : 'text-red-600'
                 }`}>
                   {tx.type === 'income' ? '+' : '-'}฿{Number(tx.amount).toLocaleString()}
                 </td>
+                <td className="p-4 text-gray-600">{tx.note}</td>
               </tr>
             ))}
           </tbody>
