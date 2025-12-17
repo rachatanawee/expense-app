@@ -32,14 +32,14 @@ export default function DashboardNav({ user }: { user: { email: string } }) {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-bold text-white hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-all"
+                  className="text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-all"
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
             <div className="flex items-center gap-4 border-l border-white/20 pl-4 ml-4">
-              <span className="text-sm font-medium text-white truncate max-w-[150px]">
+              <span className="text-sm text-white/80 truncate max-w-[150px]">
                 {user.email}
               </span>
               <LogoutButton />
@@ -67,7 +67,7 @@ export default function DashboardNav({ user }: { user: { email: string } }) {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-bold text-white hover:text-white hover:bg-white/10"
+                className="block px-3 py-2 rounded-md text-base font-medium text-white/90 hover:text-white hover:bg-white/10"
               >
                 {link.label}
               </Link>
@@ -76,8 +76,8 @@ export default function DashboardNav({ user }: { user: { email: string } }) {
           <div className="pt-4 pb-4 border-t border-white/20">
             <div className="flex items-center px-5">
               <div className="ml-3">
-                <div className="text-sm font-bold leading-none text-white/90">Signed in as</div>
-                <div className="text-sm font-bold leading-none text-white mt-1">{user.email}</div>
+                <div className="text-sm font-medium leading-none text-white/60">Signed in as</div>
+                <div className="text-sm font-medium leading-none text-white mt-1">{user.email}</div>
               </div>
             </div>
             <div className="mt-3 px-2">
