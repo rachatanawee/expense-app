@@ -5,23 +5,32 @@ import { updateCategory } from '@/app/actions/categories'
 
 async function getCategory(id: string) {
   const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+
+  if (!user) {
+    throw new Error('Not authenticated')
+  }
+
   const { data } = await supabase
     .from('categories')
     .select('*')
     .eq('id', id)
+    .eq('user_id', user.id) // Ensure user can only access their own categories
     .single()
-  
+
   return data
 }
 
-export default async function EditCategoryPage({ params }: { params: { id: string } }) {
-  const category = await getCategory(params.id)
-  
+export default async function EditCategoryPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const category = await getCategory(id)
+
   if (!category) {
     notFound()
   }
-  
-  const updateWithId = updateCategory.bind(null, params.id)
+
+  const updateWithId = updateCategory.bind(null, id)
   
   return (
     <div className="max-w-md">

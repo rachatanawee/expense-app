@@ -2,22 +2,27 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { DeleteButton } from './delete-button'
+import { getIcon } from '@/lib/icons'
 
 async function getCategories() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  
+
+  if (!user) {
+    return { categories: [], userId: null }
+  }
+
   const { data, error } = await supabase
     .from('categories')
     .select('*')
     .order('created_at', { ascending: false })
-  
+
   if (error) {
     console.error('Error:', error)
-    return { categories: [], userId: user?.id }
+    return { categories: [], userId: user.id }
   }
-  
-  return { categories: data || [], userId: user?.id }
+
+  return { categories: data || [], userId: user.id }
 }
 
 export default async function CategoriesPage() {
@@ -48,7 +53,7 @@ export default async function CategoriesPage() {
                 className="p-4 border rounded bg-white flex justify-between items-center"
               >
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">{cat.icon}</span>
+                  <span className="text-2xl">{getIcon(cat.icon)}</span>
                   <div>
                     <h2 className="font-semibold">{cat.name}</h2>
                     <span 
