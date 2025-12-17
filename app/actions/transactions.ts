@@ -15,10 +15,11 @@ export async function createTransaction(formData: FormData) {
   const accountId = formData.get('account_id') as string
   
   // Insert transaction
+  const categoryId = formData.get('category_id') as string
   const { error } = await supabase.from('transactions').insert({
     user_id: user.id,
     account_id: accountId,
-    category_id: formData.get('category_id') as string,
+    category_id: categoryId || null,
     amount,
     type,
     date: formData.get('date') as string,

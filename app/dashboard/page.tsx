@@ -6,14 +6,14 @@ async function getDashboardData() {
   const { data: { user } } = await supabase.auth.getUser()
 
   // Get summary data
-//   const { data: accounts } = await supabase
-//     .from('accounts')
-//     .select('balance')
-//     .eq('user_id', user!.id)
+  const { data: accounts } = await supabase
+    .from('accounts')
+    .select('balance')
+    .eq('user_id', user!.id)
 
-//   const totalBalance = accounts?.reduce((sum, acc) => sum + Number(acc.balance), 0) || 0
+  const totalBalance = accounts?.reduce((sum, acc) => sum + Number(acc.balance), 0) || 0
 
-  return { totalBalance: 0 }
+  return { totalBalance }
 }
 
 export default async function DashboardPage() {

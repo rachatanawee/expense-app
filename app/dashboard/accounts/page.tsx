@@ -38,7 +38,7 @@ export default async function AccountsPage() {
                 <h3 className="font-semibold">{account.name}</h3>
                 <span 
                   className="text-xs px-2 py-1 rounded"
-                  style={{ backgroundColor: account.color, color: 'white' }}
+                  style={{ backgroundColor: account.color || '#6b7280', color: 'white' }}
                 >
                   {account.type}
                 </span>
