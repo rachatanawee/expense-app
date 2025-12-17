@@ -1,6 +1,7 @@
 // app/dashboard/transactions/new/page.tsx
 import { createClient } from '@/lib/supabase/server'
 import { createTransaction } from '@/app/actions/transactions'
+import { getIcon } from '@/lib/icons'
 
 async function getFormData() {
   const supabase = await createClient()
@@ -44,7 +45,7 @@ export default async function NewTransactionPage() {
         
         <div>
           <label className="block text-sm font-medium mb-1">Account</label>
-          <select name="account_id" required className="w-full px-3 py-2 border rounded">
+          <select name="account_id" required className="w-full px-3 py-2 border rounded" defaultValue={accounts[0]?.id || ''}>
             <option value="">Select account</option>
             {accounts.map(acc => (
               <option key={acc.id} value={acc.id}>{acc.name}</option>
@@ -58,7 +59,7 @@ export default async function NewTransactionPage() {
             <option value="">Select category</option>
             {categories.map(cat => (
               <option key={cat.id} value={cat.id}>
-                {cat.icon} {cat.name}
+                {getIcon(cat.icon)} {cat.name}
               </option>
             ))}
           </select>
